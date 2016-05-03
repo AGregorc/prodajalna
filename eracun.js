@@ -221,9 +221,8 @@ streznik.post('/prijava', function(zahteva, odgovor) {
       vrniStranke(function(napaka, stranke){
        vrniRacune(function(napaka1, racuni){
          
-           odgovor.render("prijava", {sporocilo:"Prišlo je do napake pri registraciji\
-           nove stranke. Prosim preverite vnešene podatke in poskusite znova.", 
-           seznamStrank: stranke, seznamRacunov:racuni});
+           odgovor.render("prijava", {sporocilo:"Prišlo je do napake pri registraciji nove stranke. Prosim preverite vnešene podatke in poskusite znova.", 
+                          seznamStrank: stranke, seznamRacunov:racuni});
          
        })
      })
@@ -232,7 +231,7 @@ streznik.post('/prijava', function(zahteva, odgovor) {
       vrniStranke(function(error, stranke) {
         vrniRacune(function(error1, racuni) {
           odgovor.render("prijava", {sporocilo:"Stranka je bila uspešno registrirana.",
-             seznamStrank: stranke, seznamRacunov: racuni});
+                                     seznamStrank: stranke, seznamRacunov: racuni});
         })
       })
     }
