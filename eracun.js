@@ -209,13 +209,35 @@ streznik.post('/prijava', function(zahteva, odgovor) {
     	  Phone, Fax, Email, SupportRepId) \
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
       //TODO: add fields and finalize
-      //stmt.run("", "", "", "", "", "", "", "", "", "", "", 3); 
-      //stmt.finalize();
+      stmt.run(polja.FirstName, polja.LastName, polja.Company, polja.Address, 
+               polja.City, polja.State, polja.Country, polja.PostalCode, 
+               polja.Phone, polja.Fax, polja.Email, 3); 
+      stmt.finalize();
     } catch (err) {
       napaka2 = true;
     }
+    
+    if (napaka2) {
+      vrniStranke(function(napaka, stranke){
+       vrniRacune(function(napaka1, racuni){
+         
+           odgovor.render("prijava", {sporocilo:"Prišlo je do napake pri registraciji\
+           nove stranke. Prosim preverite vnešene podatke in poskusite znova.", 
+           seznamStrank: stranke, seznamRacunov:racuni});
+         
+       })
+     })
+    }
+    else {
+      vrniStranke(function(error, stranke) {
+        vrniRacune(function(error1, racuni) {
+          odgovor.render("prijava", {sporocilo:"Stranka je bila uspešno registrirana.",
+             seznamStrank: stranke, seznamRacunov: racuni});
+        })
+      })
+    }
   
-    odgovor.end();
+    //odgovor.end();
   });
 })
 
